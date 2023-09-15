@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Greeting } from './Greeting';
 import { PeopleList } from './PeopleList';
+import { CounterButton } from './CounterButton';
+import { CongratulationsMessage } from './CongratulationsMessage';
 import './App.css';
 
 const people = [{
@@ -20,26 +23,23 @@ const people = [{
 
 function App() {
   
-  let adjective = "cool";
-  let url = "https://reactjs.org";
+  const [numberOfClicks, setNumberOfClicks] = useState(0);
+  const [hideMessage, setHideMessage] = useState(false);
+
+  const increment = () => setNumberOfClicks(numberOfClicks + 1);
 
   return (
     <div className="App">
       <header className="App-header">
-        <Greeting  name="Sheldon" numberOfMessages={100} />
-        <PeopleList people={people} />
-        <button onClick={() => alert("Hello!")}>Click Me!</button>
-        <p>
-          Hello, there. {adjective}!
-        </p>
-        <a
-          className="App-link"
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {hideMessage
+          ? null
+          : <CongratulationsMessage 
+            numberOfClicks={numberOfClicks}
+            threshold={10}
+            onHide={() => setHideMessage(true)}
+            ></CongratulationsMessage>}
+        
+        <CounterButton onIncrement={increment} numberOfClicks={numberOfClicks}></CounterButton>
       </header>
     </div>
   );
