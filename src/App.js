@@ -3,23 +3,11 @@ import { Greeting } from './Greeting';
 import { PeopleList } from './PeopleList';
 import { CounterButton } from './CounterButton';
 import { CongratulationsMessage } from './CongratulationsMessage';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { HomePage, CounterButtonPage, PeopleListPage, NotFoundPage, ProtectedPage } from './pages';
 import './App.css';
 
-const people = [{
-  name: "John"
-  , age: 40
-  , hairColor: "brown"
-}
-, {
-  name: "Helga"
-  , age: 25
-  , hairColor: "red"
-}
-, {
-  name: "Dwayne"
-  , age: 55
-  , hairColor: "blonde"
-}];
+
 
 function App() {
   
@@ -30,17 +18,17 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        {hideMessage
-          ? null
-          : <CongratulationsMessage 
-            numberOfClicks={numberOfClicks}
-            threshold={10}
-            onHide={() => setHideMessage(true)}
-            ></CongratulationsMessage>}
-        
-        <CounterButton onIncrement={increment} numberOfClicks={numberOfClicks}></CounterButton>
-      </header>
+      <BrowserRouter>   
+            <Link to="/counter">Go to the Counter Page</Link>
+            <Link to="/people-list">Go to the People List Page</Link>
+            <Routes>
+                <Route exact path="/" element={ <HomePage /> } />
+                <Route exact path="/counter" element={ <CounterButtonPage /> } />
+                <Route exact path="/people-list" element={ <PeopleListPage /> } />
+                <Route path='/protected' element={ <ProtectedPage /> } />
+                <Route path="*" element={ <NotFoundPage /> } />
+            </Routes>
+        </BrowserRouter>
     </div>
   );
 }
