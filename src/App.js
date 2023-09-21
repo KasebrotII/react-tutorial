@@ -1,10 +1,17 @@
 import { useState } from 'react';
-import { Greeting } from './Greeting';
-import { PeopleList } from './PeopleList';
-import { CounterButton } from './CounterButton';
-import { CongratulationsMessage } from './CongratulationsMessage';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { HomePage, CounterButtonPage, PeopleListPage, NotFoundPage, ProtectedPage } from './pages';
+import { 
+  HomePage,
+  CounterButtonPage,
+  PeopleListPage,
+  NotFoundPage,
+  ProtectedPage,
+  ControlledFormPage,
+  UncontrolledFormPage,
+  UserProfilePage
+} from './pages';
+import { NavBar } from './NavBar';
+import { FormsNavBar } from './FormsNavBar';
 import './App.css';
 
 
@@ -19,13 +26,16 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>   
-            <Link to="/counter">Go to the Counter Page</Link>
-            <Link to="/people-list">Go to the People List Page</Link>
+            <NavBar />
             <Routes>
                 <Route exact path="/" element={ <HomePage /> } />
                 <Route exact path="/counter" element={ <CounterButtonPage /> } />
                 <Route exact path="/people-list" element={ <PeopleListPage /> } />
-                <Route path='/protected' element={ <ProtectedPage /> } />
+                <Route path="/protected" element={ <ProtectedPage /> } />
+                <Route path='/user' element={ <UserProfilePage /> } />
+                <Route path="/forms" element={ <FormsNavBar /> } />
+                                <Route path="/forms/controlled" element={ <ControlledFormPage /> } />
+                                <Route path="/forms/uncontrolled" element={ <UncontrolledFormPage /> } />
                 <Route path="*" element={ <NotFoundPage /> } />
             </Routes>
         </BrowserRouter>
